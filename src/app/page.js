@@ -1,7 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 
-
 const peeps = [
   {
     name: 'Wolverine',
@@ -30,18 +29,20 @@ const peeps = [
   },
 ];
 
+const listItems = peeps.map((peep) => (
+  <li
+    className={styles.listItem}
+    key={peep.id}
+  >
+    {peep.name}: {peep.group}
+  </li>
+));
+
 export default function Home() {
-
-  const listItems = peeps.map((peep) => (
-    <li key={peep.id}>
-      {peep.name}
-    </li>
-  ));
-
   return (
-    <div>
+    <div >
       <h1>Hellos</h1>
-      <ul>
+      <ul className={styles.list}>
         {listItems}
       </ul>
     </div>
