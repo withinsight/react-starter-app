@@ -32,12 +32,11 @@ const peeps = [
 
 export default function Home() {
 
-  const listItems = peeps.map((peep) => {
-    // console.log(peep);
+  const listItems = peeps.map((peep) => (
     <li key={peep.id}>
       {peep.name}
     </li>
-  });
+  ));
 
   return (
     <div>
