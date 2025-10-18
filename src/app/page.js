@@ -1,3 +1,6 @@
+'use client';
+
+import React from "react";
 import styles from "./page.module.css";
 
 const peeps = [
@@ -44,26 +47,37 @@ export function Image({url, altText}) {
   );
 }
 
-const listItems = peeps.map((peep) => (
-  <li
-    key={peep.id}
-    className={styles.listItem}
-    style={{
-      borderBottom: '1px solid #ccc',
-      padding: '10px'
-    }}
-  >
-    {peep.name}: {peep.group}
-    <Image url={peep.avatar} altText={peep.altText} />
-  </li>
-));
-
 export default function Home() {
+  const [searchTerm, setSearchTerm] = React.useState("");
+  const filteredPeeps = peeps.filter((peep) => (
+    peep.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    peep.group.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  );
+
   return (
     <div style={{padding: '10px'}}>
       <h1 style={{marginBottom: '20px'}}>MCU Characters</h1>
+      <input 
+        type="text" 
+        placeholder="Search..." 
+        value={searchTerm} 
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
       <ul className={styles.list}>
-        {listItems}
+        {filteredPeeps.map((peep) => (
+          <li
+            key={peep.id}
+            className={styles.listItem}
+            style={{
+              borderBottom: '1px solid #ccc',
+              padding: '10px'
+            }}
+          >
+            {peep.name}: {peep.group}
+            <Image url={peep.avatar} altText={peep.altText} />
+          </li>
+        ))}
       </ul>
     </div>
   );
